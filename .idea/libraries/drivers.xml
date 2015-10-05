@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="drivers">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/cmpYGlcdrv.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/companyx-watchdriver-api-1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -5,14 +5,7 @@ import vendorX.drivers.TypeXYZWatchDriver;
 
 import java.io.IOException;
 
-/**       } catch (IOException e) {
- throw new DeviceException("IO Exception thrown by TypeXYZWatchDriver: " + e.getMessage(),e);
- } catch (NoSignalException e) {
- throw new DeviceException("No signal exception thrown by TypeXYZWatchDriver: " + e.getMessage(),e);
- }
 
- * Created by Carlo on 21/09/2015.
- */
 public class HearthbeatDevice implements IDevice {
     private static final String DEVICE_NAME = "Hearthbeat Monitor (TypeXYZWatchDriver)";
     private static final String DEVICE_DESCRIPTION = "Monitors hearthbeat";
