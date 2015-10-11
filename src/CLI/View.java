@@ -1,10 +1,7 @@
 package CLI;
 
-import Device.GlucoseDevice;
-import Device.HearthbeatDevice;
-import Device.StepsSinceMidnightDevice;
-import Device.StressLevelDevice;
 import Engine.*;
+import Device.*;
 
 import java.util.Scanner;
 
@@ -22,27 +19,33 @@ public class View implements ParameterListener {
         engine = new Engine();
         while (!cont) {
             Parameter parameter = null;
-            System.out.println("Which value would you like to follow? \n" +
-                    "\t1: Glucose\n" +
-                    "\t2: Hearthbeat\n" +
-                    "\t3: Stress\n" +
-                    "\t4: Steps");
+
+            System.out.println("Which value would you like to follow? \n");
+            for (String key : Devices.DEVICES.keySet()) {
+                System.out.print(key + ":\n");
+                int i = 0;
+                for (String valueType : Devices.DEVICES.get(key).getValueTypes()) {
+                    System.out.printf("\t%d: %s\n", i, valueType);
+                    i++;
+                }
+            }
+
             int choice = scanner.nextInt();
             System.out.printf("At what frequency do you want to measure? (Seconds): ");
             int freq = scanner.nextInt() * 1000;
 
             switch (choice) {
                 case 1:
-                    parameter = new Parameter(new GlucoseDevice(), freq);
+                    parameter = new Parameter(Devices.DEVICES.get(0).initialize(), Devices.DEVICES.get(0).getValueTypes()[0], freq);
                     break;
                 case 2:
-                    parameter = new Parameter(new HearthbeatDevice(), freq);
+                    parameter = new Parameter(Devices.DEVICES.get(0).initialize(), Devices.DEVICES.get(0).getValueTypes()[1], freq);
                     break;
                 case 3:
-                    parameter = new Parameter(new StressLevelDevice(), freq);
+                    parameter = new Parameter(Devices.DEVICES.get(0).initialize(), Devices.DEVICES.get(0).getValueTypes()[2], freq);
                     break;
                 case 4:
-                    parameter = new Parameter(new StepsSinceMidnightDevice(), freq);
+                    parameter = new Parameter(Devices.DEVICES.get(1).initialize(), Devices.DEVICES.get(0).getValueTypes()[0], freq);
                     break;
                 default:
                     System.out.println("Please select a valid value.");
@@ -73,6 +76,6 @@ public class View implements ParameterListener {
 
     @Override
     public void OnError(Throwable e) {
-        System.out.println("An error occured: " + e.getMessage());
+        System.out.println("An error occurred: " + e.getMessage());
     }
 }

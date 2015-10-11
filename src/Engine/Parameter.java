@@ -17,14 +17,12 @@ public class Parameter implements Runnable {
 
     private long frequency;
 
-    private IDevice device;
+    private Device device;
+    private String valueType;
 
-    private Measurement lastMeasurement;
+    private Measurement lastSuccesfullMeasurement;
 
-    /*
-        Constructor initializes device with the correct class based on the given paraName
-     */
-    public Parameter(IDevice device, long frequency) {
+    public Parameter(Device device, String type, long frequency) {
         this.device = device;
         device.initialize();
         listeners = new ArrayList<ParameterListener>();
@@ -37,19 +35,19 @@ public class Parameter implements Runnable {
 
     private void getMeasurement() {
         try {
-            lastMeasurement = new Measurement(new Date(), device.getValue(), device.getName());
+            lastSuccesfullMeasurement = new Measurement(new Date(), device.getValue(valueType), device.getDeviceName());
             for (ParameterListener listener : listeners) {
-                listener.OnMeasured(lastMeasurement);
+                listener.OnMeasured(lastSuccesfullMeasurement);
             }
         } catch (DeviceException e) {
             for (ParameterListener listener : listeners) {
-                listener.OnError(new ParameterException("A Device Exception has occured.",e));
+                listener.OnError(new ParameterException("A Device Exception has occurred within " + device.getDeviceName() + ", with the message: \"" + e.getMessage() + "\"", e));
             }
         }
     }
 
-    public Measurement getLastMeasurement() {
-        return lastMeasurement;
+    public Measurement getLastSuccesfullMeasurement() {
+        return lastSuccesfullMeasurement;
     }
 
     @Override
