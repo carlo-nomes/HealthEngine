@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cmpYGlcdrv">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../cmpYGlcdrv/cmpYGlcdrv.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
